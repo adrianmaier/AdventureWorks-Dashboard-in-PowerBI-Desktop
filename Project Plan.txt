@@ -1,0 +1,107 @@
+#### Project Plan with Objectives ####
+
+Key Objectives to build the Adventure Works Dashboard in Power BI Desktop
+
+Chapters: 
+- Connect and Shape Data for AdventureWorks 
+- Create the Data Model (relational)
+- Calculate Measures with DAX
+- Visualize Data on Dashboard (interactive report)
+- Optimize Performance
+
+
+
+# Tasks: 
+
+DATA CLEANSING
+
+- Verify column headers and all data types are correct
+- Replace zeros in the product style field with “NA”
+- etc.
+
+
+NUMERICALS 
+Calculate
+- Average product costs
+- Number of product colors
+- Distinct customers
+- Max. annual customer income
+
+
+CALENDAR DATES
+
+- Month Name (e.g. “April”)
+- Month Number (e.g. “4”)
+- Start of Year (e.g. “1/1/2022”)
+- Year (e.g. “2022”)
+
+
+RELATIONSHIPS
+
+- Create relationships (star schema) between Customer, Sales, Product, Calendar, Territories tables
+- Connect all product tables (Product, Category, Subcategory) in a snowflake schema
+
+
+HIERARCHIES
+
+- Create a new hierarchy "Date Hierarchy" based on the start of year field
+- Include in it:
+1. Start of Year
+2. Start of Month
+3. Start of Week
+4. Date
+
+CREATE MEASURES FOR DASHBOARD
+
+- math + stats measure
+> Total Customers: the number of distinct customers 
+> Create a measure named Return Rate: quant. returned divided by quant. sold
+
+- logical 
+> Create a calc. col. in the customer lookup  
+- Customer Priority:
+- Income Level
+
+
+MEASURE CALCULATIONS AND INSIGHTS
+
+Create:
+- measure "Bike Returns": total quantity of bikes returned
+- matrix to show Bike Returns (values) by Start of Month (rows)
+- measure named Bike Sales: total quantity of bikes sold
+- measure named Bike Return Rate
+-> How to reply to any concerns about increasing bike returns?
+
+- measure named All Returns: total amount of returns, disregarding filter context
+- measure named % of All Returns that divides Total Returns by All Returns
+- matrix to show % of All Returns by product Category Name
+-> Which category shows largest + smallest return percentage?
+
+- measure named Total Cost: multiplies the order quantities (Sales Data) by the product cost (Product Lookup), calculates the sum
+- new measure named Total Profit (revenue - cost)
+- matrix to show Total Profit (values) by Year (in rows)
+-> How much profit has AdventureWorks generated in FY 2022?
+
+
+- Previous Month Profit
+- Previous Month Orders
+- Previous Month Returns
+- Order Target (as 10% inc. over previous period)
+- Profit Target (as 10% inc. over previous period)
+
+
+VIZ STRUCTURE
+
+- card “UNIQUE CUSTOMERS”
+- second card: Average Revenue per Customer
+- added a line chart to the Customer Detail report with Total Customers (by week)
+- added a table to the Customer Detail report with Customer Key, Name, Total Orders, Total Revenue
+- used conditional formatting for the table rows
+- added a visual-level filter (Top N) showing top 100 customers with most orders
+- customer detail report: updated X-axis of line chart pulling in "Date Hierarchy"
+- used chart header to drill up and down to see trends at each granularity
+- tested drill mode to verify granularity
+-> What is the reason some weeks look fairly low?
+
+- Report interactions logic on the Customer Detail tab: 
+filtering line chart not impacting donut charts, filtering table not impacting line chart and donuts, slicer should impact all visuals on the report page
